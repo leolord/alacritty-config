@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alacritty 配置管理器</title>
+  <style>
+    .config-section {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .form-group {
+      margin: 10px 0;
+    }
+    label {
+      display: inline-block;
+      width: 200px;
+    }
+    .sub-section {
+      margin-left: 20px;
+    }
+    details {
+      margin: 10px 0;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Alacritty 配置管理器</h1>
+
+  <div class="config-section">
+    <h2>常规设置</h2>
+    <div class="form-group">
+      <label>工作目录:</label>
+      <input type="text" id="working-directory" placeholder="None">
+    </div>
+    <div class="form-group">
+      <label>实时配置重载:</label>
+      <input type="checkbox" id="live-config-reload" checked>
+    </div>
+  </div>
+
+  <div class="config-section">
+    <h2>窗口设置</h2>
+    <div class="form-group">
+      <label>尺寸 (列):</label>
+      <input type="number" id="window-columns" min="0">
+    </div>
+    <div class="form-group">
+      <label>尺寸 (行):</label>
+      <input type="number" id="window-lines" min="0">
+    </div>
+    <div class="form-group">
+      <label>不透明度:</label>
+      <input type="number" id="window-opacity" min="0" max="1" step="0.1">
+    </div>
+    <div class="form-group">
+      <label>装饰风格:</label>
+      <select id="window-decorations">
+        <option value="Full">完整</option>
+        <option value="None">无</option>
+        <option value="Transparent">透明</option>
+        <option value="Buttonless">无按钮</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>启动模式:</label>
+      <select id="window-startup-mode">
+        <option value="Windowed">窗口化</option>
+        <option value="Maximized">最大化</option>
+        <option value="Fullscreen">全屏</option>
+        <option value="SimpleFullscreen">简单全屏</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>标题:</label>
+      <input type="text" id="window-title">
+    </div>
+    <div class="form-group">
+      <label>动态标题:</label>
+      <input type="checkbox" id="window-dynamic-title">
+    </div>
+  </div>
+
+  <div class="config-section">
+    <h2>字体设置</h2>
+    <details>
+      <summary>常规字体</summary>
+      <div class="sub-section">
+        <div class="form-group">
+          <label>字体名称:</label>
+          <input type="text" id="font-normal-family">
+        </div>
+        <div class="form-group">
+          <label>字体样式:</label>
+          <input type="text" id="font-normal-style">
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary>粗体字体</summary>
+      <div class="sub-section">
+        <div class="form-group">
+          <label>字体名称:</label>
+          <input type="text" id="font-bold-family">
+        </div>
+        <div class="form-group">
+          <label>字体样式:</label>
+          <input type="text" id="font-bold-style">
+        </div>
+      </div>
+    </details>
+    <div class="form-group">
+      <label>字体大小:</label>
+      <input type="number" id="font-size" min="1" step="0.25">
+    </div>
+    <div class="form-group">
+      <label>内置字符绘制:</label>
+      <input type="checkbox" id="font-builtin-box-drawing">
+    </div>
+  </div>
+
+  <div class="config-section">
+    <h2>颜色设置</h2>
+    <details>
+      <summary>主要颜色</summary>
+      <div class="sub-section">
+        <div class="form-group">
+          <label>前景色:</label>
+          <input type="color" id="colors-primary-foreground">
+        </div>
+        <div class="form-group">
+          <label>背景色:</label>
+          <input type="color" id="colors-primary-background">
+        </div>
+      </div>
+    </details>
+    <details>
+      <summary>光标颜色</summary>
+      <div class="sub-section">
+        <div class="form-group">
+          <label>文本:</label>
+          <input type="color" id="colors-cursor-text">
+        </div>
+        <div class="form-group">
+          <label>光标:</label>
+          <input type="color" id="colors-cursor-cursor">
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="config-section">
+    <h2>光标设置</h2>
+    <div class="form-group">
+      <label>样式:</label>
+      <select id="cursor-style">
+        <option value="Block">方块</option>
+        <option value="Underline">下划线</option>
+        <option value="Beam">竖线</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>闪烁:</label>
+      <select id="cursor-blinking">
+        <option value="Never">从不</option>
+        <option value="Off">关闭</option>
+        <option value="On">开启</option>
+        <option value="Always">总是</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>闪烁间隔 (ms):</label>
+      <input type="number" id="cursor-blink-interval" min="0">
+    </div>
+    <div class="form-group">
+      <label>闪烁超时 (秒):</label>
+      <input type="number" id="cursor-blink-timeout" min="0">
+    </div>
+  </div>
+
+  <div class="config-section">
+    <h2>滚动设置</h2>
+    <div class="form-group">
+      <label>历史行数:</label>
+      <input type="number" id="scrolling-history" min="0" max="100000">
+    </div>
+    <div class="form-group">
+      <label>滚动倍数:</label>
+      <input type="number" id="scrolling-multiplier" min="1">
+    </div>
+  </div>
+
+  <button onclick="saveConfig()" style="margin: 20px; padding: 10px 20px;">保存配置</button>
+
+  <script>
+    // 加载当前配置
+    async function loadConfig() {
+      try {
+        const response = await fetch('/api/config');
+        const config = await response.json();
+        
+        // 常规设置
+        document.getElementById('working-directory').value = config.working_directory || '';
+        document.getElementById('live-config-reload').checked = config.live_config_reload !== false;
+
+        // 窗口设置
+        if (config.window) {
+          document.getElementById('window-opacity').value = config.window.opacity || 1;
+          document.getElementById('window-title').value = config.window.title || 'Alacritty';
+          document.getElementById('window-decorations').value = config.window.decorations || 'Full';
+          document.getElementById('window-startup-mode').value = config.window.startup_mode || 'Windowed';
+          document.getElementById('window-dynamic-title').checked = config.window.dynamic_title !== false;
+          if (config.window.dimensions) {
+            document.getElementById('window-columns').value = config.window.dimensions.columns || 0;
+            document.getElementById('window-lines').value = config.window.dimensions.lines || 0;
+          }
+        }
+
+        // 字体设置
+        if (config.font) {
+          document.getElementById('font-size').value = config.font.size || 11;
+          document.getElementById('font-builtin-box-drawing').checked = config.font.builtin_box_drawing !== false;
+          if (config.font.normal) {
+            document.getElementById('font-normal-family').value = config.font.normal.family || '';
+            document.getElementById('font-normal-style').value = config.font.normal.style || '';
+          }
+          if (config.font.bold) {
+            document.getElementById('font-bold-family').value = config.font.bold.family || '';
+            document.getElementById('font-bold-style').value = config.font.bold.style || '';
+          }
+        }
+
+        // 光标设置
+        if (config.cursor) {
+          document.getElementById('cursor-style').value = config.cursor.style?.shape || 'Block';
+          document.getElementById('cursor-blinking').value = config.cursor.style?.blinking || 'Off';
+          document.getElementById('cursor-blink-interval').value = config.cursor.blink_interval || 750;
+          document.getElementById('cursor-blink-timeout').value = config.cursor.blink_timeout || 5;
+        }
+
+        // 滚动设置
+        if (config.scrolling) {
+          document.getElementById('scrolling-history').value = config.scrolling.history || 10000;
+          document.getElementById('scrolling-multiplier').value = config.scrolling.multiplier || 3;
+        }
+      } catch (err) {
+        console.error('加载配置失败:', err);
+      }
+    }
+
+    // 保存配置
+    async function saveConfig() {
+      const config = {
+        working_directory: document.getElementById('working-directory').value || null,
+        live_config_reload: document.getElementById('live-config-reload').checked,
+        
+        window: {
+          dimensions: {
+            columns: parseInt(document.getElementById('window-columns').value) || 0,
+            lines: parseInt(document.getElementById('window-lines').value) || 0
+          },
+          opacity: parseFloat(document.getElementById('window-opacity').value),
+          decorations: document.getElementById('window-decorations').value,
+          startup_mode: document.getElementById('window-startup-mode').value,
+          title: document.getElementById('window-title').value,
+          dynamic_title: document.getElementById('window-dynamic-title').checked
+        },
+
+        font: {
+          normal: {
+            family: document.getElementById('font-normal-family').value,
+            style: document.getElementById('font-normal-style').value
+          },
+          bold: {
+            family: document.getElementById('font-bold-family').value,
+            style: document.getElementById('font-bold-style').value
+          },
+          size: parseFloat(document.getElementById('font-size').value),
+          builtin_box_drawing: document.getElementById('font-builtin-box-drawing').checked
+        },
+
+        cursor: {
+          style: {
+            shape: document.getElementById('cursor-style').value,
+            blinking: document.getElementById('cursor-blinking').value
+          },
+          blink_interval: parseInt(document.getElementById('cursor-blink-interval').value),
+          blink_timeout: parseInt(document.getElementById('cursor-blink-timeout').value)
+        },
+
+        scrolling: {
+          history: parseInt(document.getElementById('scrolling-history').value),
+          multiplier: parseInt(document.getElementById('scrolling-multiplier').value)
+        }
+      };
+
+      try {
+        await fetch('/api/config', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(config)
+        });
+        alert('配置已保存');
+      } catch (err) {
+        console.error('保存配置失败:', err);
+        alert('保存配置失败');
+      }
+    }
+
+    // 页面加载时获取当前配置
+    loadConfig();
+  </script>
+</body>
+</html>
